@@ -1,60 +1,64 @@
-// GLAD Includes.
-#include <glad/glad.h>
+// Project Includes.
+#include "Graphics.h"
+#include "ImGuiSetup.h"
+#include "Platform.h"
 
-// GLFW Includes.
-#include <GLFW/glfw3.h>
-
-// std Includes.
-#include <iostream>
-
-void framebuffer_size_callback( GLFWwindow* window, int width, int height )
+void OnKeyboardEvent( const Platform::KeyCode key_code, const Platform::KeyAction key_action, const Platform::KeyMods key_mods )
 {
-    glViewport( 0, 0, width, height );
+	if( ImGui::GetIO().WantCaptureKeyboard )
+		return;
+
+	switch( key_code )
+	{
+		case Platform::KeyCode::KEY_ESCAPE:
+			if( key_action == Platform::KeyAction::PRESS )
+				Platform::SetShouldClose( true );
+			break;
+		default:
+			break;
+	}
 }
 
-void processInput( GLFWwindow* window )
+void DrawImGui()
 {
-    if( glfwGetKey( window, GLFW_KEY_ESCAPE ) == GLFW_PRESS )
-        glfwSetWindowShouldClose( window, true );
+    if( ImGui::Begin( "Test Window" ) )
+    {
+        ImGui::Text( "Example text." );
+    }
 }
 
 int main()
 {
-    glfwInit();
-    glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
-    glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3 );
-    glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    Platform::InitializeAndCreateWindow( 800, 600, 100, 100 );
+    
+    ImGuiSetup::Initialize();
 
-    GLFWwindow* window = glfwCreateWindow( 800, 600, "LearnOpenGL", NULL, NULL );
-    if( window == NULL )
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent( window );
-
-    if( !gladLoadGLLoader( ( GLADloadproc )glfwGetProcAddress ) )
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
-
-    glfwSetFramebufferSizeCallback( window, framebuffer_size_callback );
+	Platform::SetKeyboardEventCallback(
+		[ = ]( const Platform::KeyCode key_code, const Platform::KeyAction key_action, const Platform::KeyMods key_mods )
+		{
+			OnKeyboardEvent( key_code, key_action, key_mods );
+		} );
 
     /* The render loop. */
-    while( !glfwWindowShouldClose( window ) )
+    while( !Platform::ShouldClose() )
     {
-        processInput( window );
+		Platform::PollEvents();
 
-        glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
-        glClear( GL_COLOR_BUFFER_BIT );
+		GLCALL( glClearColor( 0.55f, 0.55f, 0.55f, 1.0f ) );
+		GLCALL( glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ) );
 
-        glfwSwapBuffers( window );
-        glfwPollEvents();
+		ImGuiSetup::BeginFrame();
+
+        DrawImGui();
+
+        ImGui::End();
+
+		ImGuiSetup::EndFrame();
+
+        Platform::SwapBuffers();
     }
 
-    glfwTerminate();
+    ImGuiSetup::Shutdown();
+
     return 0;
 }

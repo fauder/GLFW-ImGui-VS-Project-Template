@@ -146,6 +146,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Assert.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="ImGuiSetup.h" />
+    <ClInclude Include="Platform.h" />
     <ClInclude Include="Vendor\GLAD\glad.h" />
     <ClInclude Include="Vendor\KHR\khrplatform.h" />
     <ClInclude Include="Vendor\GLFW\glfw3.h" />
@@ -161,6 +165,8 @@
     <ClInclude Include="Vendor\ImGui\imstb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ImGuiSetup.cpp" />
+    <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Vendor\GLAD\glad.c" />
     <ClCompile Include="Vendor\ImGui\imgui.cpp" />
     <ClCompile Include="Vendor\ImGui\imgui_demo.cpp" />
