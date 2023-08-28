@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33214.272
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW-ImGui-VS-Project-Template", "GLFW-ImGui-VS-Project-Template.vcxproj", "{CCD3C9D2-A616-40AB-87E3-7D9E900E38E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCD3C9D2-A616-40AB-87E3-7D9E900E38E8}.Debug|x64.ActiveCfg = Debug|x64
+		{CCD3C9D2-A616-40AB-87E3-7D9E900E38E8}.Debug|x64.Build.0 = Debug|x64
+		{CCD3C9D2-A616-40AB-87E3-7D9E900E38E8}.Release|x64.ActiveCfg = Release|x64
+		{CCD3C9D2-A616-40AB-87E3-7D9E900E38E8}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F6117D0-3889-4C06-AA3F-D606BCF871E0}
+	EndGlobalSection
+EndGlobal
