@@ -8,7 +8,7 @@
 #include <GLFW/glfw3.h>
 
 // ImGui Includes.
-#include "Vendor/ImGui/imgui_impl_glfw.h"
+#include "../Vendor/ImGui/imgui_impl_glfw.h"
 
 // std Includes.
 #include <stdexcept>
