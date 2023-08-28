@@ -29,7 +29,7 @@ void DrawImGui()
 
 int main()
 {
-    Platform::InitializeAndCreateWindow( 800, 600, 100, 100 );
+    Platform::InitializeAndCreateWindow( 800, 600 );
 	Platform::ChangeTitle( "TODO: CHANGE PROGRAM TITLE" );
     
     ImGuiSetup::Initialize();

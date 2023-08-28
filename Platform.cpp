@@ -88,7 +88,7 @@ namespace Platform
 		glfwSetScrollCallback( WINDOW, OnMouseScrolled );
 	}
 
-	void InitializeAndCreateWindow( const int width_pixels, const int height_pixels, const int pos_x_pixels, const int pos_y_pixels )
+	void InitializeAndCreateWindow( const int width_pixels, const int height_pixels )
 	{
 		glfwInit();
 		glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
@@ -105,7 +105,8 @@ namespace Platform
 			throw std::logic_error( "ERROR::PLATFORM::GLFW::FAILED TO CREATE GLFW WINDOW!" );
 		}
 
-		glfwSetWindowPos( WINDOW, pos_x_pixels, pos_y_pixels );
+		CenterWindow( width_pixels, height_pixels );
+
 		glfwShowWindow( WINDOW );
 
 		glfwMakeContextCurrent( WINDOW );
@@ -123,6 +124,15 @@ namespace Platform
 	void Resize( const int width_new_pixels, const int height_new_pixels )
 	{
 		OnResize( nullptr, width_new_pixels, height_new_pixels );
+	}
+
+	void CenterWindow( const int width_pixels, const int height_pixels )
+	{
+		const GLFWvidmode* mode = glfwGetVideoMode( glfwGetPrimaryMonitor() );
+
+		const auto max_width = mode->width;
+		const auto max_height = mode->height;
+		glfwSetWindowMonitor( WINDOW, NULL, ( max_width / 2 ) - ( width_pixels / 2 ), ( max_height / 2 ) - ( height_pixels / 2 ), width_pixels, height_pixels, GLFW_DONT_CARE );
 	}
 
 	void SwapBuffers()
