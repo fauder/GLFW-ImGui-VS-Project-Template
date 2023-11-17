@@ -25,6 +25,8 @@ void DrawImGui()
     {
         ImGui::Text( "Example text." );
     }
+
+	ImGui::End();
 }
 
 int main()
@@ -51,8 +53,6 @@ int main()
 		ImGuiSetup::BeginFrame();
 
         DrawImGui();
-
-        ImGui::End();
 
 		ImGuiSetup::EndFrame();
 
