@@ -3,6 +3,27 @@
 #include "ImGuiSetup.h"
 #include "Platform.h"
 
+bool ImGui_BeginFullScreenWindow( const char* name, bool* p_open = ( bool* )nullptr, ImGuiWindowFlags flags = 0 )
+{
+#ifdef IMGUI_HAS_VIEWPORT
+	ImGuiViewport* viewport = ImGui::GetMainViewport();
+	ImGui::SetNextWindowPos( viewport->GetWorkPos() );
+	ImGui::SetNextWindowSize( viewport->GetWorkSize() );
+	ImGui::SetNextWindowViewport( viewport->ID );
+#else 
+	ImGui::SetNextWindowPos( ImVec2( 0.0f, 0.0f ) );
+	ImGui::SetNextWindowSize( ImGui::GetIO().DisplaySize );
+#endif
+	ImGui::PushStyleVar( ImGuiStyleVar_WindowRounding, 0.0f );
+	return ImGui::Begin( name, p_open, flags | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize );
+}
+
+void ImGui_EndFullScreenWindow()
+{
+	ImGui::End();
+	ImGui::PopStyleVar();
+}
+
 void OnKeyboardEvent( const Platform::KeyCode key_code, const Platform::KeyAction key_action, const Platform::KeyMods key_mods )
 {
 	if( ImGui::GetIO().WantCaptureKeyboard )
